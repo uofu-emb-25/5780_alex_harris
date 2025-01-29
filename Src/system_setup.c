@@ -1,6 +1,6 @@
 #include "main.h"
 #include <stm32f0xx_hal.h>
-#include <stm32f072b_discovery.h>
+// #include <stm32f072b_discovery.h>
 
 /**
   * @brief  This function is executed in case of error occurrence.
