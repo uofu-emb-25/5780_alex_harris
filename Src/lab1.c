@@ -18,8 +18,9 @@ int lab1_main(void) {
     HAL_GPIO_Init(GPIOC, &initStr);
 
     // Assert that GPIO pins 8 and 9 are set to push pull output mode
-    // assert(GPIOC->OTYPER & GPIO_OTYPER_OT_8  == 0);
-    // assert(GPIO_OTYPER_OT_9  == 0);
+    assert((GPIOC->OTYPER & GPIO_OTYPER_OT_8)  == 0);
+    assert((GPIOC->OTYPER & GPIO_OTYPER_OT_9)  == 0);
+
 
     // Assert that GPIO pins 8 and 9 are set to low freq mode
     assert(((GPIOC ->OSPEEDR & GPIO_OSPEEDR_OSPEEDR8_Msk) >> GPIO_OSPEEDR_OSPEEDR8_Pos) == 0x0);
@@ -31,7 +32,7 @@ int lab1_main(void) {
 
 
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-    // assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_8) == GPIO_PIN_SET);
+    assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_8) == GPIO_PIN_SET);
 
     // GPIOC->MODER |= (1 << 12) | (1 << 14) | (1 << 16);
 
