@@ -42,5 +42,7 @@ int lab1_main(void) {
     while (1) {
         HAL_Delay(200);
         HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_9);
+        //Assert that the GPIO 8 and GPIO 9 are not in the same state.
+        assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_8) != HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_9));
     }
 }
