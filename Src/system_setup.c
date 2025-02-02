@@ -3,6 +3,16 @@
 // #include <stm32f072b_discovery.h>
 
 /**
+ * @brief This function uses RCC to enable the GPIOC Peripheral Clock.
+ * @param  none
+ * @retval none
+ */
+void My_HAL_RCC_GPIOC_CLK_ENABLE(void)
+{
+  RCC->AHBENR |= (1 << 20);
+}
+
+/**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
   * @retval None
