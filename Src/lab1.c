@@ -15,7 +15,7 @@ int lab1_main(void) {
                                 GPIO_SPEED_FREQ_LOW, 
                                 GPIO_NOPULL};
     
-    HAL_GPIO_Init(GPIOC, &initStr);
+    My_HAL_GPIO_Init(GPIOC, &initStr);
 
     // Assert that GPIO pins 8 and 9 are set to push pull output mode
     assert((GPIOC->OTYPER & GPIO_OTYPER_OT_8)  == 0);
@@ -33,11 +33,6 @@ int lab1_main(void) {
 
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
     assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_8) == GPIO_PIN_SET);
-
-    // GPIOC->MODER |= (1 << 12) | (1 << 14) | (1 << 16);
-
-    // GPIOC->MODER &= ~((1 << 0) | (1 << 1) | (1 << 13) | (1 << 15) | (1 << 17));
-    
 
     while (1) {
         HAL_Delay(200);

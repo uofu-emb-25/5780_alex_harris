@@ -1,11 +1,22 @@
 #include <stdint.h>
 #include <stm32f0xx_hal.h>
 #include <stm32f0xx_hal_gpio.h>
-/*
-void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
+
+void My_HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 {
+    GPIOx->MODER   |= (1 << 12) | (1 << 14) | (1 << 16) | (1 << 18);
+
+    GPIOx->MODER   &= ~((1 << 0) | (1 << 1) | (1 << 13) | (1 << 15) | (1 << 17) | (1 << 19));
+
+    GPIOx->OTYPER  &= ~((1 << 6) | (1 << 7) | (1 << 8) | (1 << 9));
+
+    GPIOx->OSPEEDR &= ~((1 << 0) | (1 << 12) | (1 << 14) | (1 << 16) | (1 << 18));
+
+    GPIOx->PUPDR   &= ~((1 << 0) | (1 << 12) |  (1 << 13) | (1 << 14) | (1 << 15) | (1 << 16) | (1 << 17) | (1 << 18) | (1 << 19));
+
+    GPIOx->PUPDR   |= ~(1 << 1);
 }
-*/
+
 
 /*
 void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
