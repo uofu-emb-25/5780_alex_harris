@@ -9,7 +9,7 @@
  */
 void My_HAL_RCC_GPIOC_CLK_ENABLE(void)
 {
-  RCC->AHBENR |= (1 << 20);
+  RCC->AHBENR|= RCC_AHBENR_GPIOCEN;
 }
 
 /**
