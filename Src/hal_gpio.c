@@ -53,7 +53,7 @@ void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
     if (GPIOx->ODR & GPIO_Pin){
         GPIOx->BSRR = GPIO_Pin << 16;
     }
-    else{
+    else {
     GPIOx->BSRR = GPIO_Pin;
    }
 }

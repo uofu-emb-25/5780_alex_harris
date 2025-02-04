@@ -26,15 +26,16 @@ int lab1_main(void) {
     assert(((GPIOC->OSPEEDR & GPIO_OSPEEDR_OSPEEDR6_Msk) >> GPIO_OSPEEDR_OSPEEDR6_Pos) == 0x0);
     assert(((GPIOC->OSPEEDR & GPIO_OSPEEDR_OSPEEDR7_Msk) >> GPIO_OSPEEDR_OSPEEDR7_Pos) == 0x0);
 
-    My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+    My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+
     // Assert that GPIOC 6 is set
-    assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6) == GPIO_PIN_SET);
+    assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7) == GPIO_PIN_SET);
 
     uint32_t debouncer = 0;
     while (1) {
     debouncer = (debouncer << 1);
 
-    if(My_HAL_GPIO_WritePin()){
+    if(My_HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
        debouncer |= 0x01;
     }
 
