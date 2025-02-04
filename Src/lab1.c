@@ -5,7 +5,9 @@ int lab1_main(void) {
     HAL_Init();
     
     SystemClock_Config();
-    My_HAL_RCC_GPIOC_CLK_ENABLE(); // Enable the GPIOC clock in the RCC    // Assert that GPIOC Clock is enabled
+    My_HAL_RCC_GPIOC_CLK_ENABLE(); // Enable the GPIOC clock in the RCC   
+    My_HAL_RCC_GPIOA_CLK_ENABLE(); // Enable the GPIOA clock in the RCC   
+    // Assert that GPIOC Clock is enabled
     assert(((RCC ->AHBENR & RCC_AHBENR_GPIOCEN_Msk) >> RCC_AHBENR_GPIOCEN_Pos) == 0x1);
 
     
