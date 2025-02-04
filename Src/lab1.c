@@ -30,11 +30,25 @@ int lab1_main(void) {
     // Assert that GPIOC 6 is set
     assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6) == GPIO_PIN_SET);
 
+    uint32_t debouncer = 0;
     while (1) {
-        
+    debouncer = (debouncer << 1);
+
     if(My_HAL_GPIO_WritePin()){
+       debouncer |= 0x01;
+    }
+
+    if(debouncer == 0xFFFFFFFF){
+
+    }
+
+    if(debouncer == 0x00000000){
+
+    }
+
+    if(debouncer == 0x7FFFFFFF){
+        My_HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_6);
         My_HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_7);
-        My_HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_6);
     }
         //Assert that the GPIOC 6 and GPIO 7 are not in the same state.
         assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6) != HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7));
