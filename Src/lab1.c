@@ -53,4 +53,5 @@ int lab1_main(void) {
         //Assert that the GPIOC 6 and GPIO 7 are not in the same state.
         assert(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6) != HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7));
     }
+    HAL_Delay(10);
 }
