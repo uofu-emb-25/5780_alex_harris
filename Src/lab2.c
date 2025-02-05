@@ -3,7 +3,7 @@
 void EXTI0_1_IRQHandler(void){
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
-    EXTI->PR &= 
+    EXTI->PR |= (1 << 0);
 }
 
 int lab2_main(void){
