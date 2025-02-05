@@ -65,6 +65,7 @@ void PendSV_Handler(void)
 {
 }
 
+int count = 0;
 /**
   * @brief  This function handles SysTick Handler.
   * @param  None
@@ -72,7 +73,12 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-    HAL_IncTick();
+  HAL_IncTick();
+  
+  count++;
+  if(count % 200 == 0){
+    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);
+  }
 }
 
 /******************************************************************************/
