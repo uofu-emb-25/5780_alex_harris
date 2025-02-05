@@ -62,3 +62,7 @@ void My_HAL_EXTI_ENABLE(void){
     EXTI->IMR  |= (1 << 0);
     EXTI->RTSR |= (1 << 0);
 }
+
+void My_HAL_SYSCFG_PA0_ENABLE(void){
+    SYSCFG->EXTICR[0] &= (1 << 0 ) | (1 << 1) | (1 << 2) | (1 << 3);
+}
