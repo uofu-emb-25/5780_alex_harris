@@ -16,6 +16,10 @@ void My_HAL_RCC_GPIOA_CLK_ENABLE(void)
 {
     RCC->AHBENR|= RCC_AHBENR_GPIOAEN;
 }
+
+void My_HAL_RCC_SYSCFG_CLK_ENABLE(void){
+    RCC->APB2ENR|= RCC_APB2ENR_SYSCFGCOMPEN;
+}
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
