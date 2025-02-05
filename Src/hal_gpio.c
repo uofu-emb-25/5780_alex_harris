@@ -64,5 +64,5 @@ void My_HAL_EXTI_ENABLE(void){
 }
 
 void My_HAL_SYSCFG_PA0_ENABLE(void){
-    SYSCFG->EXTICR[0] &= (1 << 0 ) | (1 << 1) | (1 << 2) | (1 << 3);
+    SYSCFG->EXTICR[0] &= ~(1 << 0 ) | (1 << 1) | (1 << 2) | (1 << 3);
 }
