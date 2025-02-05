@@ -57,3 +57,8 @@ void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
     GPIOx->BSRR = GPIO_Pin;
    }
 }
+
+void My_HAL_EXTI_ENABLE(void){
+    EXTI->IMR  |= (1 << 0);
+    EXTI->RTSR |= (1 << 0);
+}
