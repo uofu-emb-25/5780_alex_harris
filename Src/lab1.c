@@ -11,7 +11,7 @@ int lab1_main(void) {
     assert(((RCC ->AHBENR & RCC_AHBENR_GPIOCEN_Msk) >> RCC_AHBENR_GPIOCEN_Pos) == 0x1);
 
     
-    GPIO_InitTypeDef initStr = {GPIO_PIN_6 | GPIO_PIN_7, 
+    GPIO_InitTypeDef initStr = {GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 
                                 GPIO_MODE_OUTPUT_PP, 
                                 GPIO_SPEED_FREQ_LOW, 
                                 GPIO_NOPULL};
