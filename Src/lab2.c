@@ -35,7 +35,7 @@ int lab2_main(void){
     
     NVIC_EnableIRQ(EXTI0_1_IRQn);
     NVIC_SetPriority(EXTI0_1_IRQn,1);
-    NVIC_SetPriority(SysTick_IRQn,0);
+    NVIC_SetPriority(SysTick_IRQn,2);
     My_HAL_EXTI_ENABLE();
 
     My_HAL_GPIO_WritePin(GPIOC,GPIO_PIN_9, GPIO_PIN_SET);
