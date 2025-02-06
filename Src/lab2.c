@@ -1,9 +1,17 @@
 #include <stm32f0xx_hal.h>
 #include <assert.h>
+int count;
 void EXTI0_1_IRQHandler(void){
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
     EXTI->PR |= (1 << 0);
+    count = count + 1;
+    if(count % 1500000 == 0){
+    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);
+
+    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
+    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
+  }
 }
 
 int lab2_main(void){
