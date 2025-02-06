@@ -1,17 +1,15 @@
 #include <stm32f0xx_hal.h>
 #include <assert.h>
-int count;
+int extiCount = 0;
 void EXTI0_1_IRQHandler(void){
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
-    EXTI->PR |= (1 << 0);
-    count = count + 1;
-    if(count % 1500000 == 0){
-    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);
 
-    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
+    EXTI->PR |= (1 << 0);
+    HAL_Delay(1500);
+    
+     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
-  }
 }
 
 int lab2_main(void){
@@ -34,14 +32,11 @@ int lab2_main(void){
                                 GPIO_PULLDOWN};
     HAL_GPIO_Init(GPIOA, &initStr2);
 
-    // assert(EXTI->IMR & 3 == 0);
-    // assert(EXTI->RTSR & 3 == 0);
+    
     NVIC_EnableIRQ(EXTI0_1_IRQn);
     NVIC_SetPriority(EXTI0_1_IRQn,1);
+    NVIC_SetPriority(SysTick_IRQn,0);
     My_HAL_EXTI_ENABLE();
-
-    // assert(EXTI->IMR == 1);
-    // assert(EXTI->RTSR == 1);
 
     My_HAL_GPIO_WritePin(GPIOC,GPIO_PIN_9, GPIO_PIN_SET);
 
