@@ -7,12 +7,12 @@ void EXTI0_1_IRQHandler(void){
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
 
     EXTI->PR |= (1 << 0);
-    while(extiCount < 1500000){
+    while(extiCount < 15000000){
         extiCount++;
     }
-    
-     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
+    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
     HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
+    extiCount = 0;
 }
 
 int lab2_main(void){
@@ -37,7 +37,7 @@ int lab2_main(void){
 
     
     NVIC_EnableIRQ(EXTI0_1_IRQn);
-    NVIC_SetPriority(EXTI0_1_IRQn,1);
+    NVIC_SetPriority(EXTI0_1_IRQn,3);
     NVIC_SetPriority(SysTick_IRQn,2);
     My_HAL_EXTI_ENABLE();
 
