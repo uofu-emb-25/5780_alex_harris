@@ -22,7 +22,6 @@ int lab2_main(void){
     My_HAL_RCC_GPIOC_CLK_ENABLE(); // Enable the GPIOA clock in the RCC   
     My_HAL_RCC_SYSCFG_CLK_ENABLE(); // Enable the SYSCFG clock in the RCC   
 
-
     GPIO_InitTypeDef initStr = {GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 
                                 GPIO_MODE_OUTPUT_PP, 
                                 GPIO_SPEED_FREQ_LOW, 

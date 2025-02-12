@@ -1,19 +1,23 @@
 #include <stm32f0xx_hal.h>
 #include <assert.h>
 
-void TIM2_IRQn_IRQHandler(void){
-    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
-    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
+void TIM2_IRQHandler(void){
+    
+    if(TIM2->SR &= TIM_SR_UIF){
+        TIM2->SR &= ~TIM_SR_UIF; 
 
-    TIM2->SR|= (1 << 0); 
+        HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
+        HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
+    }
+    
 }
 
 int lab3_main(void){
     HAL_Init();
-    SystemClock_Config();
     My_HAL_RCC_GPIOC_CLK_ENABLE(); // Enable the GPIOC clock in the RCC   
+    My_HAL_TIMER_PERIPHERAL_ENABLE(); // Enables the TIM2 peripheral
 
-    GPIO_InitTypeDef initStr = {GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 
+    GPIO_InitTypeDef initStr = {GPIO_PIN_8 | GPIO_PIN_9, 
         GPIO_MODE_OUTPUT_PP, 
         GPIO_SPEED_FREQ_LOW, 
         GPIO_NOPULL};
@@ -22,5 +26,5 @@ int lab3_main(void){
 
 
     NVIC_EnableIRQ(TIM2_IRQn);
-    NVIC_SetPriority(TIM2_IRQn,3);
+    NVIC_SetPriority(TIM2_IRQn,1);
 }
