@@ -23,7 +23,10 @@ void My_HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 
 }
 
-
+void My_HAL_LED_ALTERNATE_FUNCTION_ENABLE(void){
+    GPIOC->AFR[0] &= ~(0xF << 28);
+    GPIOC->AFR[0] &= ~(0xF << 24);
+}
 /*
 void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 {
