@@ -26,3 +26,4 @@ void My_HAL_TIMER_PERIPHERAL_ENABLE(void)
     TIM3-> CCR1 = 50000;
     TIM3-> CCR2 = 50000;
 }
+

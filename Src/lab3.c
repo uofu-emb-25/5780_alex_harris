@@ -15,7 +15,8 @@ void TIM2_IRQHandler(void){
 int lab3_main(void){
     HAL_Init();
     My_HAL_RCC_GPIOC_CLK_ENABLE(); // Enable the GPIOC clock in the RCC   
-    My_HAL_TIMER_PERIPHERAL_ENABLE(); // Enables the TIM2 peripheral
+    My_HAL_TIMER_PERIPHERAL_ENABLE(); // Enables the TIM2 and TIM3 peripheral
+    My_HAL_LED_ALTERNATE_FUNCTION_ENABLE();
 
     GPIO_InitTypeDef initStr = {GPIO_PIN_8 | GPIO_PIN_9, 
         GPIO_MODE_OUTPUT_PP, 
