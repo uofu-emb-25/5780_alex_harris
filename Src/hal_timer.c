@@ -9,7 +9,7 @@ void My_HAL_TIMER_PERIPHERAL_ENABLE(void)
 
     TIM2->PSC = 8000;
     TIM2->ARR = 250;
-    TIM3->PSC = 1;
+    TIM3->PSC = 25599;
     TIM3->ARR = 250000;
 
     TIM2->DIER|= TIM_DIER_UIE;
