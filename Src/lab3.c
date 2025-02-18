@@ -18,7 +18,7 @@ int lab3_main(void){
     My_HAL_TIMER_PERIPHERAL_ENABLE(); // Enables the TIM2 and TIM3 peripheral
     My_HAL_LED_ALTERNATE_FUNCTION_ENABLE();
 
-    GPIO_InitTypeDef initStr = {GPIO_PIN_8 | GPIO_PIN_9, 
+    GPIO_InitTypeDef initStr = {GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 
         GPIO_MODE_OUTPUT_PP, 
         GPIO_SPEED_FREQ_LOW, 
         GPIO_NOPULL};
@@ -28,4 +28,6 @@ int lab3_main(void){
 
     NVIC_EnableIRQ(TIM2_IRQn);
     NVIC_SetPriority(TIM2_IRQn,1);
+    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_6);
+    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);
 }
