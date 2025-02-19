@@ -10,20 +10,23 @@ void My_HAL_TIMER_PERIPHERAL_ENABLE(void)
     TIM2->PSC = 7999;
     TIM2->ARR = 250;
     TIM3->PSC = 99;
-    TIM3->ARR = 99;
+    TIM3->ARR = 101;
 
     TIM2->DIER|= TIM_DIER_UIE;
     TIM2->CR1 |= TIM_CR1_CEN;
 
-    TIM3->CCMR1 &= ~(TIM_CCMR1_CC1S | TIM_CCMR1_CC2S);
-    TIM3->CCMR1 |= (6 << TIM_CCMR1_OC1M_Pos);
-    TIM3->CCMR1 |= (6 << TIM_CCMR1_OC2M_Pos);
+    TIM3->CCMR1 &= ~(TIM_CCMR1_CC1S);
+    TIM3->CCMR1 &= ~(TIM_CCMR1_CC2S);
+    TIM3->CCMR1 |= (1 << 4) | (1 << 5) | (1 << 6);
+    TIM3->CCMR1 |= (1 << 14) | (1 << 13);
+    TIM3->CCMR1 &= ~(1 << 12);
+    TIM3->CCMR1 |= TIM_CCMR1_OC1PE;
+    TIM3->CCMR1 |= TIM_CCMR1_OC2PE;
     TIM3->CCER  |= TIM_CCER_CC1E | TIM_CCER_CC2E;
-
+    TIM3->CR1 |= TIM_CR1_ARPE;
+    TIM3-> CCR1 = 100;
+    TIM3-> CCR2 = 60;
     TIM3->CR1 |= TIM_CR1_CEN;
-
-    TIM3-> CCR1 = 20;
-    TIM3-> CCR2 = 50;
 
 }
 
