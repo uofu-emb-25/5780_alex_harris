@@ -12,7 +12,7 @@ int lab4_main(void){
     My_HAL_USART_ALTERNATE_FUNCTION_ENABLE();
     My_HAL_USART_CONFIGURE_PARAMS();
 
-    GPIO_InitTypeDef initStr = {GPIO_PIN_8 | GPIO_PIN_9, 
+    GPIO_InitTypeDef initStr = {GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9, 
         GPIO_MODE_OUTPUT_PP, 
         GPIO_SPEED_FREQ_LOW, 
         GPIO_NOPULL};
