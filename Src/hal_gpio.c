@@ -30,6 +30,14 @@ void My_HAL_LED_ALTERNATE_FUNCTION_ENABLE(void){
     GPIOC->MODER &= ~((3 << (6 * 2)) | (3 << (7 * 2))); 
     GPIOC->MODER |= (2 << (6 * 2)) | (2 << (7 * 2)); 
 }
+
+void My_HAL_USART_ALTERNATE_FUNCTION_ENABLE(void){
+    GPIOA->AFR[1] &= ~(0xF << 4);
+    GPIOA->AFR[1] &= ~(0xF << 8);
+
+    GPIOA->AFR[1] |= (1 << 4);
+    GPIOA->AFR[1] |= (1 << 8);
+}
 /*
 void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 {
