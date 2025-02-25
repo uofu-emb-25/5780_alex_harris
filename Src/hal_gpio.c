@@ -38,6 +38,14 @@ void My_HAL_USART_ALTERNATE_FUNCTION_ENABLE(void){
     GPIOA->AFR[1] |= (1 << 4);
     GPIOA->AFR[1] |= (1 << 8);
 }
+
+void My_HAL_USART_CONFIGURE_PARAMS(void){
+    GPIOA->BRR = 69;
+    USART1->CR1 = USART_CR1_TE;
+    USART1->CR1 = USART_CR1_RE;
+    USART1->CR1 = USART_CR1_UE;
+
+}
 /*
 void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 {
