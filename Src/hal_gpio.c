@@ -37,6 +37,9 @@ void My_HAL_USART_ALTERNATE_FUNCTION_ENABLE(void){
 
     GPIOA->AFR[1] |= (1 << 4);
     GPIOA->AFR[1] |= (1 << 8);
+
+    GPIOA->MODER &= ~(0xF << 18); 
+    GPIOA->MODER |= ((1 << 21) | (1 << 19)); 
 }
 
 void My_HAL_USART_CONFIGURE_PARAMS(void){
