@@ -9,6 +9,7 @@ int lab4_main(void){
     HAL_Init();
     My_HAL_RCC_GPIOA_CLK_ENABLE();
     My_HAL_RCC_GPIOC_CLK_ENABLE(); // Enable the GPIOC clock in the RCC   
+    My_HAL_RCC_USART_CLK_ENABLE();
     My_HAL_USART_ALTERNATE_FUNCTION_ENABLE();
     My_HAL_USART_CONFIGURE_PARAMS();
 
@@ -17,4 +18,9 @@ int lab4_main(void){
         GPIO_SPEED_FREQ_LOW, 
         GPIO_NOPULL};
     HAL_GPIO_Init(GPIOC, &initStr);
+
+    while(1){
+        transmit_message('hello');
+        HAL_Delay(1000);
+    }
 }
