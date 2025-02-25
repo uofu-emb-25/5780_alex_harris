@@ -23,7 +23,25 @@ int lab4_main(void){
     HAL_GPIO_Init(GPIOC, &initStr);
 
     while(1){
-        transmit_message('h');
-        HAL_Delay(1000);
+        if((USART1->ISR & USART_ISR_RXNE) == 1){
+            char val = (char)(USART1->RDR & 0xFF);
+            switch(val){
+                case ('r'):
+                    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_6);
+                    break;
+                case ('b'):
+                    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_7);
+                    break;
+                case ('o'):
+                    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_8);
+                    break;
+                case ('g'):
+                    HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_9);
+                    break;
+                default:
+                    USART1->TDR = 'e';
+                    break;
+            }
+        }
     }
 }
