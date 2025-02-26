@@ -49,6 +49,17 @@ void My_HAL_USART_CONFIGURE_PARAMS(void){
     GPIOA->PUPDR   |= (GPIO_PUPDR_PUPDR9_0 | GPIO_PUPDR_PUPDR10_0);
     USART1->CR1    |= (USART_CR1_TE | USART_CR1_RE | USART_CR1_UE);
 }
+
+void My_HAL_I2C_ALTERNATE_FUNCTION_ENABLE(void){
+    GPIOB->AFR[0] &= ~(0xF << 24);
+    GPIOB->AFR[0] &= ~(0xF << 28);
+
+    GPIOB->AFR[0] |= (1 << 24);
+    GPIOB->AFR[0] |= (1 << 28);
+
+    GPIOB->MODER &= ~(0xF << 12); 
+    GPIOB->MODER |= (0xA << 12); 
+}
 /*
 void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 {
