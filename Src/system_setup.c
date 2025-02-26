@@ -20,7 +20,11 @@ void My_HAL_RCC_USART_CLK_ENABLE(void){
     RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
 }
 void My_HAL_RCC_SYSCFG_CLK_ENABLE(void){
-    RCC->APB2ENR|= RCC_APB2ENR_SYSCFGCOMPEN;
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGCOMPEN;
+}
+
+void My_HAL_RCC_I2C_CLK_ENABLE(void){
+  RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
 }
 /**
   * @brief  This function is executed in case of error occurrence.
