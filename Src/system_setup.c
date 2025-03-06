@@ -25,6 +25,7 @@ void My_HAL_RCC_SYSCFG_CLK_ENABLE(void){
 
 void My_HAL_RCC_I2C_CLK_ENABLE(void){
   RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
+  RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;
 }
 /**
   * @brief  This function is executed in case of error occurrence.
