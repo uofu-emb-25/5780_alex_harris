@@ -71,10 +71,10 @@ void My_HAL_I2C_CONFIGURE_PARAMS(void){
     I2C1->CR1 |= I2C_CR1_PE;
 }
 
-void My_HAL_I2C_READ_TRANSACTION_SETUP(void){
+void My_HAL_I2C_WRITE_TRANSACTION_SETUP(void){
     I2C1->CR2 &= ~((0x7F << 16) | (0x3FF << 0));
-    I2C1->CR2 |= (42 << 16 | 0x69 << 1);
-    I2C1->CR2 |= (1 << 10);
+    I2C1->CR2 |= (1 << 16 | 0x69 << 1);
+    I2C1->CR2 &= ~(1 << 10);
     I2C1->CR2 |= (1 << 13);
 }
 /*
