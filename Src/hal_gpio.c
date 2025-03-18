@@ -136,6 +136,42 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 }
 */
 
+void My_HAL_I2C2_Read_WHO_AM_I(void){
+    I2C2->CR2 = (0x69 << 1);
+    I2C2->CR2 = (1 << 16);
+    I2C2->CR2 = (0 << 10);
+    I2C2->CR2 = I2C_CR2_START;
+
+    while(!(I2C2->ISR & (I2C_ISR_TXIS | I2C_ISR_NACKF))){}
+
+    if(I2C2->ISR & I2C_ISR_NACKF){
+        return;
+    }
+
+    I2C2->TXDR = 0xD3;
+
+    while(!(I2C2->ISR & I2C_ISR_TC)){}
+
+    I2C2->CR2 = (0x69 << 1);
+    I2C2->CR2 = (1 << 16);
+    I2C2->CR2 = (1 << 10);
+    I2C2->CR2 = I2C_CR2_START;
+
+    while(!(I2C2->ISR & (I2C_ISR_RXNE | I2C_ISR_NACKF))){}
+
+    if(I2C2->ISR & I2C_ISR_NACKF){
+        return;
+    }
+
+    while(!(I2C2->ISR & I2C_ISR_TC)){}
+
+    if(I2C2->RXDR == 0xD3){
+
+    }
+
+    I2C2->CR2 |= I2C_CR2_STOP;
+}
+
 GPIO_PinState My_HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
     return GPIOx->IDR & GPIO_Pin;
