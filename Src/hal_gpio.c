@@ -105,6 +105,12 @@ void My_HAL_I2C2_ALTERNATE_FUNCTION_CONFIG(void){
     GPIOC->ODR |= (1 << 0);
 }
 
+void My_HAL_I2C2_PERIPHERAL_CONFIG(void){
+    RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;
+    I2C2->TIMINGR |= ((1 << 28) | (4 << 28) | (2 << 16) | (6 << 8) | (9 << 0));
+    I2C2->CR1 |= I2C_CR1_PE;
+}
+
 void My_HAL_I2C_CONFIGURE_PARAMS(void){
     // set pb6 and pb7 to output open drain
     GPIOB->OTYPER |= GPIO_OTYPER_OT_6 | GPIO_OTYPER_OT_7;
