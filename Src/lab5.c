@@ -1,0 +1,13 @@
+#include <stm32f0xx_hal.h>
+#include <assert.h>
+
+int lab5_main(void){
+    My_HAL_I2C_ALTERNATE_FUNCTION_ENABLE();
+    My_HAL_I2C_CONFIGURE_PARAMS();
+    My_HAL_I2C_CLK_ENABLE();
+    My_HAL_I2C2_ALTERNATE_FUNCTION_CONFIG();
+    My_HAL_I2C2_PERIPHERAL_CONFIG();
+
+    My_HAL_GPIOB_CLK_ENABLE();
+    My_HAL_GPIOC_CLK_ENABLE();
+}
