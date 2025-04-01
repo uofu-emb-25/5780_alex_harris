@@ -50,147 +50,27 @@ void My_HAL_USART_CONFIGURE_PARAMS(void){
     USART1->CR1    |= (USART_CR1_TE | USART_CR1_RE | USART_CR1_UE);
 }
 
-void My_HAL_I2C1_ALTERNATE_FUNCTION_ENABLE(void){
-    // clear alternate function registers for pb6 and pb7
-    GPIOB->AFR[0] &= ~(0xF << 24);
-    GPIOB->AFR[0] &= ~(0xF << 28);
-
-    // set to af1
-    GPIOB->AFR[0] |= (1 << 24);
-    GPIOB->AFR[0] |= (1 << 28);
-
-    // set gpio to alternate function mode
-    GPIOB->MODER &= ~(0xF << 12); 
-    GPIOB->MODER |= (0xA << 12); 
-}
-
-void My_HAL_I2C2_ALTERNATE_FUNCTION_CONFIG(void){
-    // configure pb11
-    // clear alternate function registers for pb11
-    GPIOB->AFR[1] &= ~(0xF << 12);
-    // set pb11 to af1
-    GPIOB->AFR[1] |= (1 << 12);
-    // set pb11 to alternate function mode
-    GPIOB->MODER &= ~(0x3 << 22); 
-    GPIOB->MODER |=  (0x2 << 22);
-    // set pb11 to push pull
-    GPIOB->OTYPER |= (1 << 11);
-
-    //configure pb13
-    GPIOB->AFR[1] &= ~(0xF << 20);
-    // set pb13 to af4
-    GPIOB->AFR[1] |= (0x4 << 20);
-    // set pb13 to alternate function mode
-    GPIOB->MODER &= ~(0x3 << 26); 
-    GPIOB->MODER |= (0x2 << 26);
-    // set pb13 to push pull
-    GPIOB->OTYPER |= (1 << 13);
-
-    //configure pb14
-    // set pb14 to output mode
-    GPIOB->MODER &= ~(0x3 << 28); 
-    GPIOB->MODER |=  (0x1 << 28); 
-    // set pb14 to push pull
-    GPIOB->OTYPER &= ~(1 << 14);
-    // set pb14 high
-    GPIOB->ODR |= (1 << 14);
-
-    // configure pc0
-    // set pc0 to output mode
-    GPIOC->MODER &= ~(0x3 << 0);
-    GPIOC->MODER |=  (0x1 << 0);
-    //set pc0 to push pull
-    GPIOC->OTYPER &= ~(1 << 0);
-    //set pc0 high
-    GPIOC->ODR |= (1 << 0);
-}
-
-void My_HAL_I2C2_PERIPHERAL_CONFIG(void){
-    RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;
-    I2C2->TIMINGR |= ((1 << 28) | (4 << 28) | (2 << 16) | (6 << 8) | (9 << 0));
-    I2C2->CR1 |= I2C_CR1_PE;
-}
-
-void My_HAL_I2C_CONFIGURE_PARAMS(void){
-    // set pb6 and pb7 to output open drain
-    GPIOB->OTYPER |= GPIO_OTYPER_OT_6 | GPIO_OTYPER_OT_7;
-
-    // configure i2c1 
-    I2C1->TIMINGR |= I2C_TIMINGR_PRESC;
-    I2C1->TIMINGR |= (0x13 << I2C_TIMINGR_SCLL);
-    I2C1->TIMINGR |= (0xF << I2C_TIMINGR_SCLH);
-    I2C1->TIMINGR |= (0x2 << I2C_TIMINGR_SDADEL);
-    I2C1->TIMINGR |= (0x4 << I2C_TIMINGR_SCLDEL);
-    I2C1->CR1 |= I2C_CR1_PE;
-}
-
-void My_HAL_I2C_WRITE_TRANSACTION_SETUP(void){
-    I2C1->CR2 &= ~((0x7F << 16) | (0x3FF << 0));
-    I2C1->CR2 |= (1 << 16 | 0x69 << 1);
-    I2C1->CR2 &= ~(1 << 10);
-    I2C1->CR2 |= (1 << 13);
-}
-/*
-void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
-{
-}
-*/
-
-void My_HAL_I2C2_Read_WHO_AM_I(void){
-    I2C2->CR2 = (0x69 << 1);
-    I2C2->CR2 = (1 << 16);
-    I2C2->CR2 = (0 << 10);
-    I2C2->CR2 = I2C_CR2_START;
-
-    while(!(I2C2->ISR & (I2C_ISR_TXIS | I2C_ISR_NACKF))){}
-
-    if(I2C2->ISR & I2C_ISR_NACKF){
-        I2C2->CR2 |= I2C_CR2_STOP;
-        return;
-    }
-
-
-    while(!(I2C2->ISR & I2C_ISR_TC)){}
-
-    I2C2->TXDR = 0xD3;
-
-    I2C2->CR2 = (0x69 << 1);
-    I2C2->CR2 = (1 << 16);
-    I2C2->CR2 = (1 << 10);
-    I2C2->CR2 = I2C_CR2_START;
-
-    while(!(I2C2->ISR & (I2C_ISR_RXNE | I2C_ISR_NACKF))){}
-
-    if(I2C2->ISR & I2C_ISR_NACKF){
-        I2C2->CR2 |= I2C_CR2_STOP;
-        return;
-    }
-
-    while(!(I2C2->ISR & I2C_ISR_TC)){}
-
-    if(I2C2->RXDR == 0xD3){
-        My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
-    }
-
-    I2C2->CR2 |= I2C_CR2_STOP;
-}
-
 void My_HAL_GPIO_ConfigADC(void){
-   RCC->APB2ENR |= RCC_APB2ENR_ADCEN;
+   GPIOC->MODER |= GPIO_MODER_MODER0;
+   GPIOC->PUPDR &= ~GPIO_PUPDR_PUPDR0;
+
    ADC1->CR &= ~ADC_CR_ADEN;
-   HAL_Delay(1);
+   while(ADC1->CR & ADC_CR_ADEN){}
 
    ADC1->CR |= ADC_CR_ADCAL;
-   while(ADC1->CR & ADC_CR_ADCAL);
+   while(ADC1->CR & ADC_CR_ADCAL){}
 
-    ADC1->CR &= ~ADC_CFGR1_RES;
-    ADC1->CR |= (0x2 << 3);
+    ADC1->CFGR1 &= ~ADC_CFGR1_RES;
+    ADC1->CFGR1 |= ADC_CFGR1_RES_1;
 
-    ADC1->CR &= ~ADC_CFGR1_CONT;
-    ADC1->CR |= ADC_CFGR1_CONT;
+    ADC1->CFGR1 |= ADC_CFGR1_CONT;
 
-    ADC1->CR &= ~ADC_CFGR1_EXTEN;
+    ADC1->CFGR1 &= ~ADC_CFGR1_EXTEN;
+
     ADC1->CR |= ADC_CR_ADEN;
+    while(!(ADC1->ISR & ADC_ISR_ADRDY));
+
+    ADC1->CHSELR = ADC_CHSELR_CHSEL10;
 }
 
 GPIO_PinState My_HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
@@ -208,8 +88,6 @@ void My_HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState 
         GPIOx->BRR = (uint32_t)GPIO_Pin;
     }
 }
-
-
 
 void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
