@@ -145,12 +145,14 @@ void My_HAL_I2C2_Read_WHO_AM_I(void){
     while(!(I2C2->ISR & (I2C_ISR_TXIS | I2C_ISR_NACKF))){}
 
     if(I2C2->ISR & I2C_ISR_NACKF){
+        I2C2->CR2 |= I2C_CR2_STOP;
         return;
     }
 
-    I2C2->TXDR = 0xD3;
 
     while(!(I2C2->ISR & I2C_ISR_TC)){}
+
+    I2C2->TXDR = 0xD3;
 
     I2C2->CR2 = (0x69 << 1);
     I2C2->CR2 = (1 << 16);
@@ -160,16 +162,35 @@ void My_HAL_I2C2_Read_WHO_AM_I(void){
     while(!(I2C2->ISR & (I2C_ISR_RXNE | I2C_ISR_NACKF))){}
 
     if(I2C2->ISR & I2C_ISR_NACKF){
+        I2C2->CR2 |= I2C_CR2_STOP;
         return;
     }
 
     while(!(I2C2->ISR & I2C_ISR_TC)){}
 
     if(I2C2->RXDR == 0xD3){
-
+        My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
     }
 
     I2C2->CR2 |= I2C_CR2_STOP;
+}
+
+void My_HAL_GPIO_ConfigADC(void){
+   RCC->APB2ENR |= RCC_APB2ENR_ADCEN;
+   ADC1->CR &= ~ADC_CR_ADEN;
+   HAL_Delay(1);
+
+   ADC1->CR |= ADC_CR_ADCAL;
+   while(ADC1->CR & ADC_CR_ADCAL);
+
+    ADC1->CR &= ~ADC_CFGR1_RES;
+    ADC1->CR |= (0x2 << 3);
+
+    ADC1->CR &= ~ADC_CFGR1_CONT;
+    ADC1->CR |= ADC_CFGR1_CONT;
+
+    ADC1->CR &= ~ADC_CFGR1_EXTEN;
+    ADC1->CR |= ADC_CR_ADEN;
 }
 
 GPIO_PinState My_HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
