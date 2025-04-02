@@ -73,6 +73,18 @@ void My_HAL_GPIO_ConfigADC(void){
     ADC1->CHSELR = ADC_CHSELR_CHSEL10;
 }
 
+void My_HAL_GPIO_ConfigDAC(void){
+   GPIOA->MODER |= GPIO_MODER_MODER4;
+   GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR4;
+
+   DAC->CR &= ~DAC_CR_EN1;
+
+   DAC->CR |= DAC_CR_TSEL1_2;
+   DAC->CR &= ~(DAC_CR_WAVE1_0 | DAC_CR_WAVE1_1);
+
+   DAC->CR |= DAC_CR_EN1;
+}
+
 GPIO_PinState My_HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
     return GPIOx->IDR & GPIO_Pin;

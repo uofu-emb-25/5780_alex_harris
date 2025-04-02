@@ -35,6 +35,9 @@ void My_HAL_RCC_I2C_CLK_ENABLE(void){
 void My_HAL_RCC_ADC_CLK_ENABLE(void){
   RCC->APB2ENR |= RCC_APB2ENR_ADCEN;
 }
+void My_HAL_RCC_DAC_CLK_ENABLE(void){
+  RCC->APB1ENR |= RCC_APB1ENR_DACEN;
+}
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
