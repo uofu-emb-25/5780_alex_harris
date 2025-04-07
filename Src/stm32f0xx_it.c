@@ -74,6 +74,7 @@ int count = 0;
 void SysTick_Handler(void)
 {
   HAL_IncTick();
+  Lab7_SysTick_Handler();
 }
 
 /******************************************************************************/
