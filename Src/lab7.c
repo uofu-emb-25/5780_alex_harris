@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "stm32f4xx.h"
+#include "stm32f0xx.h"
 #include "motor.h"
 #include "SEGGER_RTT.h"
 
@@ -86,7 +86,6 @@ int lab7_main(void) {
     HAL_Init();                             // Initialize HAL internals
     LED_init();                             // Initialize LED's
     button_init();                          // Initialize button
-SEE
     motor_init();                           // Initialize motor code
 
     while (1) {
