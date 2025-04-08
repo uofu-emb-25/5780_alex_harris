@@ -11,8 +11,8 @@ volatile int16_t target_rpm = 0;    	// Desired speed target
 volatile int16_t motor_speed = 0;   	// Measured motor speed
 volatile int8_t adc_value = 0;      	// ADC measured motor current
 volatile int16_t error = 0;         	// Speed error signal
-volatile uint8_t Kp = 1;            	// Proportional gain
-volatile uint8_t Ki = 1;            	// Integral gain
+volatile uint8_t Kp = 5;            	// Proportional gain
+volatile uint8_t Ki = 5;            	// Integral gain
 volatile int16_t target_speed = 0;
 // Sets up the entire motor drive system
 void motor_init(void) {
@@ -138,7 +138,7 @@ void TIM6_DAC_IRQHandler(void) {
     
     // Call the PI update function
     PI_update();
-    log_data();
+    // log_data();
     TIM6->SR &= ~TIM_SR_UIF;        // Acknowledge the interrupt
 }
 

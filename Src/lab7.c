@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "stm32f0xx.h"
+#include <stm32f0xx.h>
 #include "motor.h"
 #include "SEGGER_RTT.h"
 
@@ -88,10 +88,24 @@ int lab7_main(void) {
     button_init();                          // Initialize button
     motor_init();                           // Initialize motor code
 
+    My_HAL_RCC_GPIOA_CLK_ENABLE();
+    My_HAL_RCC_GPIOC_CLK_ENABLE(); 
+    My_HAL_RCC_USART_CLK_ENABLE();
+
+    My_HAL_USART_ALTERNATE_FUNCTION_ENABLE();
+    My_HAL_USART_CONFIGURE_PARAMS();
+
+
+    NVIC_EnableIRQ(USART1_IRQn);
+    NVIC_SetPriority(USART1_IRQn,0);
+    USART1->CR1 |= USART_CR1_RXNEIE;
+    char message[8];
     while (1) {
         GPIOC->ODR ^= GPIO_ODR_9;           // Toggle green LED (heartbeat)
         encoder_count = TIM2->CNT;
         HAL_Delay(128);                      // Delay 1/8 second
+        snprintf(&message, 8, "%d\n", motor_speed);
+        transmit_message(message);
     }
 }
 
